@@ -101,22 +101,6 @@ final class ViewController: UIViewController {
     }
     
     private func setNavController() {
-        let appearance = UINavigationBarAppearance()
-        
-        navigationController?.navigationBar.prefersLargeTitles = false
-        
-        appearance.backgroundColor = Colors.shared.backgroundColor
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        appearance.configureWithOpaqueBackground()
-        appearance.shadowColor = .clear
-        appearance.shadowImage = UIImage()
-        
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.standardAppearance.backgroundColor = Colors.shared.backgroundColor
-        navigationController?.navigationBar.scrollEdgeAppearance?.backgroundColor = Colors.shared.backgroundColor
-        navigationController?.navigationBar.barTintColor = Colors.shared.backgroundColor
-        
         let filterImage = UIImage(named: "Vector")?.resizeImageTo(size: CGSize(width: 15, height: 15))
         let filterBarItem = UIBarButtonItem(image: filterImage, style: .plain, target: self, action: #selector(filterTapped))
         filterBarItem.tintColor = .black
@@ -135,9 +119,14 @@ final class ViewController: UIViewController {
                 sel.bestSellerCollectionView.viewModel.observableAccepterOfData.onNext(data.bestSeller)
                 
                 sel.bestSellerCollectionView.viewModel.observable.bind { url in
+                    let detailsViewController = DetailsViewController()
+                    sel.show(detailsViewController, sender: nil)
                     let detailsModel: Observable<DeviceDetails> = NetworkManager().performGet(urlString: url)  //Ошибся на стадии создания коллекции.
                                                                                                                //Нужно было в коллекции хранить массив с моделями ячеек а не модели данных для ячеек
                                                                                                                //Не надо было бы такие длинные байндинги прокладывать
+                    detailsModel.bind { deviceDetails in
+                        detailsViewController.viewModel = DetailsViewControllerViewModel(details: deviceDetails)
+                    }.disposed(by: sel.viewModel.disposedBad)
                     detailsModel.bind { device in
                         print(device)
                     }.disposed(by: sel.viewModel.disposedBad)

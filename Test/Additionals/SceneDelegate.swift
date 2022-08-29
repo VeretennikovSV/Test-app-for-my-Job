@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainViewController = ViewController()
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
+        setNavController(controller: navigationController)
+        
         let tabbar = CustomBar()
         
         
@@ -54,7 +56,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
+    
+    private func setNavController(controller: UINavigationController) {
+        let appearance = UINavigationBarAppearance()
+        
+        controller.navigationBar.prefersLargeTitles = false
+        
+        appearance.backgroundColor = Colors.shared.backgroundColor
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = .clear
+        appearance.shadowImage = UIImage()
+        
+        controller.navigationBar.standardAppearance = appearance
+        controller.navigationBar.scrollEdgeAppearance = appearance
+        controller.navigationBar.standardAppearance.backgroundColor = Colors.shared.backgroundColor
+        controller.navigationBar.scrollEdgeAppearance?.backgroundColor = Colors.shared.backgroundColor
+        controller.navigationBar.barTintColor = Colors.shared.backgroundColor
+        
+    }
 
 }
 
