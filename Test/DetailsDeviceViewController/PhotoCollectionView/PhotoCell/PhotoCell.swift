@@ -11,7 +11,7 @@ import RxSwift
 
 final class PhotoCell: UICollectionViewCell {
     
-    private lazy var imageView = UIImageView()
+    private lazy var imageView = UIImageView(frame: CGRect(origin: CGPoint(x: frame.size.width * 0.05, y: frame.size.height * 0.05), size: CGSize(width: frame.size.width * 0.9, height: frame.size.height * 0.9)))
     
     var viewModel: PhotoCellViewModelProtocol! {
         didSet {
@@ -44,7 +44,7 @@ final class PhotoCell: UICollectionViewCell {
         
         
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 19
+        layer.shadowRadius = 10
         layer.shadowOpacity = 0.1
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 14).cgPath
         layer.shadowOffset = CGSize(width: 0, height: 10)
@@ -62,7 +62,6 @@ final class PhotoCell: UICollectionViewCell {
             .observe(on: MainScheduler.instance)
             .bind { sel, image in
                 sel.imageView.image = image?.resizeImageTo(size: sel.frame.size)
-//                sel.backgroundColor = .green
             }.disposed(by: viewModel.disposeBag)
         
         viewModel.imageLoader.getImageFrom(url: url)

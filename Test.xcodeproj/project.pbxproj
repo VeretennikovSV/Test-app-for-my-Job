@@ -31,6 +31,13 @@
 		09BCC92D28B61A02009D1CBC /* HotSalesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC92C28B61A02009D1CBC /* HotSalesCell.swift */; };
 		09BCC92F28B61A0F009D1CBC /* HotSalesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC92E28B61A0F009D1CBC /* HotSalesCellViewModel.swift */; };
 		09BCC93128B63C7A009D1CBC /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC93028B63C7A009D1CBC /* Cache.swift */; };
+		09BDCD7328BE0C0600EE48C8 /* CustomImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDCD7228BE0C0600EE48C8 /* CustomImageLabelView.swift */; };
+		09BDCD7628BE114800EE48C8 /* CustomImageLabelViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDCD7528BE114800EE48C8 /* CustomImageLabelViewViewModel.swift */; };
+		09BDCD7B28BE777F00EE48C8 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDCD7A28BE777F00EE48C8 /* CircleButton.swift */; };
+		09BDCD7E28BE839400EE48C8 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDCD7D28BE839400EE48C8 /* ScrollView.swift */; };
+		09BF200228BD2D400034D065 /* AboutDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BF200128BD2D400034D065 /* AboutDeviceView.swift */; };
+		09BF200528BD2D530034D065 /* AboutDeviceViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BF200428BD2D530034D065 /* AboutDeviceViewViewModel.swift */; };
+		09BF200728BD2F680034D065 /* CustomButtonForDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BF200628BD2F680034D065 /* CustomButtonForDetails.swift */; };
 		09C6920928B524E0004B3D38 /* BestSellerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C6920828B524E0004B3D38 /* BestSellerCollectionView.swift */; };
 		09C6920B28B5380C004B3D38 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C6920A28B5380C004B3D38 /* Extensions.swift */; };
 		09C6920D28B53B87004B3D38 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C6920C28B53B87004B3D38 /* Models.swift */; };
@@ -75,6 +82,13 @@
 		09BCC92C28B61A02009D1CBC /* HotSalesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesCell.swift; sourceTree = "<group>"; };
 		09BCC92E28B61A0F009D1CBC /* HotSalesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSalesCellViewModel.swift; sourceTree = "<group>"; };
 		09BCC93028B63C7A009D1CBC /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		09BDCD7228BE0C0600EE48C8 /* CustomImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageLabelView.swift; sourceTree = "<group>"; };
+		09BDCD7528BE114800EE48C8 /* CustomImageLabelViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageLabelViewViewModel.swift; sourceTree = "<group>"; };
+		09BDCD7A28BE777F00EE48C8 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		09BDCD7D28BE839400EE48C8 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		09BF200128BD2D400034D065 /* AboutDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDeviceView.swift; sourceTree = "<group>"; };
+		09BF200428BD2D530034D065 /* AboutDeviceViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDeviceViewViewModel.swift; sourceTree = "<group>"; };
+		09BF200628BD2F680034D065 /* CustomButtonForDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonForDetails.swift; sourceTree = "<group>"; };
 		09C6920828B524E0004B3D38 /* BestSellerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellerCollectionView.swift; sourceTree = "<group>"; };
 		09C6920A28B5380C004B3D38 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		09C6920C28B53B87004B3D38 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -199,6 +213,52 @@
 			path = HotSalesCell;
 			sourceTree = "<group>";
 		};
+		09BDCD7428BE113A00EE48C8 /* CustomViewes */ = {
+			isa = PBXGroup;
+			children = (
+				09BDCD7928BE775B00EE48C8 /* CircleButton */,
+				09BDCD7828BE18A000EE48C8 /* CustomImageLabel */,
+				09BDCD7728BE188900EE48C8 /* CustomButton */,
+			);
+			name = CustomViewes;
+			sourceTree = "<group>";
+		};
+		09BDCD7728BE188900EE48C8 /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				09BF200628BD2F680034D065 /* CustomButtonForDetails.swift */,
+			);
+			name = CustomButton;
+			sourceTree = "<group>";
+		};
+		09BDCD7828BE18A000EE48C8 /* CustomImageLabel */ = {
+			isa = PBXGroup;
+			children = (
+				09BDCD7228BE0C0600EE48C8 /* CustomImageLabelView.swift */,
+				09BDCD7528BE114800EE48C8 /* CustomImageLabelViewViewModel.swift */,
+			);
+			name = CustomImageLabel;
+			sourceTree = "<group>";
+		};
+		09BDCD7928BE775B00EE48C8 /* CircleButton */ = {
+			isa = PBXGroup;
+			children = (
+				09BDCD7A28BE777F00EE48C8 /* CircleButton.swift */,
+				09BDCD7D28BE839400EE48C8 /* ScrollView.swift */,
+			);
+			name = CircleButton;
+			sourceTree = "<group>";
+		};
+		09BF200028BD2CF50034D065 /* DeviceView */ = {
+			isa = PBXGroup;
+			children = (
+				09BDCD7428BE113A00EE48C8 /* CustomViewes */,
+				09BF200128BD2D400034D065 /* AboutDeviceView.swift */,
+				09BF200428BD2D530034D065 /* AboutDeviceViewViewModel.swift */,
+			);
+			path = DeviceView;
+			sourceTree = "<group>";
+		};
 		09C6921028B54527004B3D38 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +324,7 @@
 		09C8769A28BCD2A0006002AC /* DetailsDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
+				09BF200028BD2CF50034D065 /* DeviceView */,
 				09C876A128BCD4C4006002AC /* PhotoCollectionView */,
 				09C8769B28BCD2BF006002AC /* DetailsViewController.swift */,
 				09C8769F28BCD2EA006002AC /* DetailsViewControllerViewModel.swift */,
@@ -427,6 +488,7 @@
 				09B2F68628B7F0030019CA64 /* Colors.swift in Sources */,
 				090A27B328BBB8CE009B432B /* UserDefaultsManager.swift in Sources */,
 				09A98DAB28BA3EDC00DBBA05 /* CustomTabBarItem.swift in Sources */,
+				09BDCD7328BE0C0600EE48C8 /* CustomImageLabelView.swift in Sources */,
 				09C6920F28B53DED004B3D38 /* NetworkManager.swift in Sources */,
 				09B2F68D28B8DDBB0019CA64 /* CategorySelectionCellViewModel.swift in Sources */,
 				09ACE04B28B4B2DF00BB6F09 /* ViewController.swift in Sources */,
@@ -437,9 +499,11 @@
 				09ACE04728B4B2DF00BB6F09 /* AppDelegate.swift in Sources */,
 				094DA5E128B4ED6400374A7B /* HotSalesCollectionView.swift in Sources */,
 				09C876A528BCD4F3006002AC /* PhotoCollectionViewViewModel.swift in Sources */,
+				09BF200228BD2D400034D065 /* AboutDeviceView.swift in Sources */,
 				09C6920D28B53B87004B3D38 /* Models.swift in Sources */,
 				09B2F67F28B793DF0019CA64 /* BestSellerCell.swift in Sources */,
 				09C876A028BCD2EA006002AC /* DetailsViewControllerViewModel.swift in Sources */,
+				09BDCD7B28BE777F00EE48C8 /* CircleButton.swift in Sources */,
 				09C6921C28B54921004B3D38 /* CategoryCollectionViewModel.swift in Sources */,
 				09C6921E28B54940004B3D38 /* BestSellerCollectionViewModel.swift in Sources */,
 				09C6921328B54540004B3D38 /* MainViewControllerViewModel.swift in Sources */,
@@ -447,13 +511,17 @@
 				09C876A328BCD4E9006002AC /* PhotoCollectionView.swift in Sources */,
 				09A98DAD28BA40F400DBBA05 /* TabBarItemViewModel.swift in Sources */,
 				09BCC93128B63C7A009D1CBC /* Cache.swift in Sources */,
+				09BF200528BD2D530034D065 /* AboutDeviceViewViewModel.swift in Sources */,
 				09A98DB828BB866D00DBBA05 /* CustomButtonViewModel.swift in Sources */,
 				09C8769C28BCD2BF006002AC /* DetailsViewController.swift in Sources */,
 				09BCC92F28B61A0F009D1CBC /* HotSalesCellViewModel.swift in Sources */,
 				09B2F68128B793FB0019CA64 /* BestSellerCellViewModel.swift in Sources */,
+				09BF200728BD2F680034D065 /* CustomButtonForDetails.swift in Sources */,
+				09BDCD7E28BE839400EE48C8 /* ScrollView.swift in Sources */,
 				09ACE04928B4B2DF00BB6F09 /* SceneDelegate.swift in Sources */,
 				09ACE05B28B4BAAF00BB6F09 /* CategorySelectionCollectionView.swift in Sources */,
 				09B2F68328B7A1BF0019CA64 /* CustomDiscountPriceLabel.swift in Sources */,
+				09BDCD7628BE114800EE48C8 /* CustomImageLabelViewViewModel.swift in Sources */,
 				09A98DB528BB862F00DBBA05 /* CustomButtonForFilter.swift in Sources */,
 				09C6920928B524E0004B3D38 /* BestSellerCollectionView.swift in Sources */,
 				09C6920B28B5380C004B3D38 /* Extensions.swift in Sources */,

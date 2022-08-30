@@ -75,8 +75,6 @@ final class ViewController: UIViewController {
         setRadius()
         setConstraints()
         scrollView.contentSize.height = bestSellerCollectionView.frame.maxY
-        
-        
     }
     
     func addNavBarTitile() {
@@ -126,6 +124,7 @@ final class ViewController: UIViewController {
                                                                                                                //Не надо было бы такие длинные байндинги прокладывать
                     detailsModel.bind { deviceDetails in
                         detailsViewController.viewModel = DetailsViewControllerViewModel(details: deviceDetails)
+                        detailsViewController.viewModel?.deviceDetailsLoaded.onNext(deviceDetails)
                     }.disposed(by: sel.viewModel.disposedBad)
                     detailsModel.bind { device in
                         print(device)
@@ -203,8 +202,6 @@ final class ViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: screenHeight),
-            scrollView.widthAnchor.constraint(equalToConstant: screenWidth),
             
             selectCatLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             selectCatLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),

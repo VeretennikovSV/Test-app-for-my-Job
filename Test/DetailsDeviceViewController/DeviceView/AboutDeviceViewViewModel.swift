@@ -1,23 +1,23 @@
 //
-//  DetailsViewControllerViewModel.swift
+//  AboutDeviceViewViewModel.swift
 //  Test
 //
 //  Created by Сергей Веретенников on 29/08/2022.
 //
 
 import Foundation
-import RxRelay
 import RxSwift
 
-protocol DetailsViewControllerViewModelProtocol {
+protocol AboutDeviceViewViewModelProtocol {
     var deviceDetails: DeviceDetails { get }
-    var deviceDetailsLoaded: PublishSubject<DeviceDetails> { get }
+    var acceptDeviceDetails: PublishSubject<DeviceDetails> { get }
     var disposeBag: DisposeBag { get }
 }
 
-final class DetailsViewControllerViewModel: DetailsViewControllerViewModelProtocol {
+final class AboutDeviceViewViewModel: AboutDeviceViewViewModelProtocol {
     var deviceDetails: DeviceDetails
-    var deviceDetailsLoaded = PublishSubject<DeviceDetails>()
+    
+    var acceptDeviceDetails = PublishSubject<DeviceDetails>()
     var disposeBag = DisposeBag()
     
     init(details: DeviceDetails) {

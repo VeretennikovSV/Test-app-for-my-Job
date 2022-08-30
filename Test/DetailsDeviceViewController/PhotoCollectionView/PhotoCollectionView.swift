@@ -34,14 +34,18 @@ final class PhotoCollectionView: UICollectionView {
     static func setLayout() -> UICollectionViewCompositionalLayout {
         
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.8)))
-        item.contentInsets.top = UIScreen.main.bounds.width * 0.09
-        item.contentInsets.bottom = UIScreen.main.bounds.width * 0.09
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [item])
+
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: UIScreen.main.bounds.width * 0.05, bottom: UIScreen.main.bounds.width * 0.09, trailing: UIScreen.main.bounds.width * 0.05)
+
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(UIScreen.main.bounds.width * 0.66), heightDimension: .fractionalHeight(1)), subitems: [item])
         
-        group.contentInsets.leading = UIScreen.main.bounds.width * 0.2
-        group.contentInsets.trailing = UIScreen.main.bounds.width * 0.2
+        group.contentInsets.leading = UIScreen.main.bounds.width * 0.17
+        group.contentInsets.trailing = UIScreen.main.bounds.width * 0.17
         
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets.leading = UIScreen.main.bounds.width * 0.17
+        section.contentInsets.trailing = UIScreen.main.bounds.width * 0.17
+        
         section.orthogonalScrollingBehavior = .paging
         
         let layout = UICollectionViewCompositionalLayout(section: section)
