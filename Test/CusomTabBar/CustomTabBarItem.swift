@@ -12,13 +12,13 @@ import RxSwift
 
 class CustimTabBarItem: UIView {
     
+    var viewModel: TabBarItemViewModel?
+    
     private let image = UIImageView()
     private let onTapGesture = UITapGestureRecognizer()
     private let disposeBag = DisposeBag()
     private lazy var countView = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: frame.width / 4, height: frame.width / 4)))
     
-    var viewModel: TabBarItemViewModel?
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Colors.shared.darkPirple

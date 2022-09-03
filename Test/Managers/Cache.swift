@@ -28,10 +28,9 @@ private final class Cache {
 
 final class PhotoCache: ImageCacheProtocol {
     
-    private var cache = Cache.shared.cache
-    
     var photoSenderObserver = PublishSubject<UIImage?>()
     
+    private var cache = Cache.shared.cache
     private let queue = DispatchQueue(label: "CacheSaving", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .workItem)
     private let lock = NSLock()
     

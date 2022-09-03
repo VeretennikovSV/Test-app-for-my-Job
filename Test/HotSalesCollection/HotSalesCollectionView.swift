@@ -13,34 +13,6 @@ import RxSwift
 final class HotSalesCollection: UICollectionView {
     
     var viewModel: HotSalesCollectionViewModelProtocol
-
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        viewModel = HotSalesCollectionViewModel()
-        super.init(frame: frame, collectionViewLayout: HotSalesCollection.setLayout())
-        
-        self.register(HotSalesCell.self, forCellWithReuseIdentifier: HotSalesCell.cellID)
-        
-        dataSource = self
-        delegate = self
-        
-        setBinding()
-        backgroundColor = Colors.shared.backgroundColor
-        
-        self.alwaysBounceVertical = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setBinding() {
-        viewModel.observableAccepterOfData
-            .observe(on: MainScheduler.asyncInstance)
-            .withUnretained(self)
-            .bind { sel, _ in
-                sel.reloadData()
-            }.disposed(by: viewModel.disposeBag)
-    }
     
     static func setLayout() -> UICollectionViewCompositionalLayout {
         
@@ -59,6 +31,35 @@ final class HotSalesCollection: UICollectionView {
         
         return layout
     }
+
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        viewModel = HotSalesCollectionViewModel()
+        super.init(frame: frame, collectionViewLayout: HotSalesCollection.setLayout())
+        
+        self.register(HotSalesCell.self, forCellWithReuseIdentifier: HotSalesCell.cellID)
+        
+        dataSource = self
+        delegate = self
+        
+        setBinding()
+        backgroundColor = Colors.shared.backgroundColor
+        
+        self.alwaysBounceVertical = false
+    }
+    
+    private func setBinding() {
+        viewModel.observableAccepterOfData
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .bind { sel, _ in
+                sel.reloadData()
+            }.disposed(by: viewModel.disposeBag)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 extension HotSalesCollection: UICollectionViewDelegate, UICollectionViewDataSource {

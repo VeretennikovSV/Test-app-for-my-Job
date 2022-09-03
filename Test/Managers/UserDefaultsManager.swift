@@ -49,11 +49,11 @@ final class UserDefaultsManager: Codable {
     func getTotalPrice() -> String {
         var price = 0.0
         cart.forEach { key, count in
-            autoreleasepool { 
-                price += devicePrices[key] ?? 0 * Double(count)
-            }
+            guard let devicePrice = devicePrices[key] else { return }
+            price += devicePrice * Double(count)
+            
         }
-        return String(price)
+        return "$\(price)"
     }
     
     func getCurrentDeviceCountWith(string: String) -> Int? {
@@ -77,7 +77,10 @@ final class UserDefaultsManager: Codable {
         }
         guard cart[key] != 0 else { return }
         cart[key]? -= 1
-        if cart[key] == 0 { cart[key] = nil }
+        if cart[key] == 0 { 
+            cart.removeValue(forKey: key)
+            cart[key] = nil 
+        }
     }
     
     func saveToCartWith(key: String) {

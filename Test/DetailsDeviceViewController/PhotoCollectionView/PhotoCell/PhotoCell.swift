@@ -29,10 +29,6 @@ final class PhotoCell: UICollectionViewCell {
         setImage()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func setImage() {
         contentView.addSubview(imageView)
         
@@ -65,5 +61,9 @@ final class PhotoCell: UICollectionViewCell {
             }.disposed(by: viewModel.disposeBag)
         
         viewModel.imageLoader.getImageFrom(url: url)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

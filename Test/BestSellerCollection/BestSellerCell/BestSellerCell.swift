@@ -17,6 +17,7 @@ final class BestSellerCell: UICollectionViewCell {
     
     var onTap = PublishRelay<Void>()
     var viewModel: BestSellerCellViewModelProtocol?
+    
     private let discountlessPrice = DiscountlessLabel()
     private let discountPrice = UILabel()
     private let deviceName = UILabel()
@@ -30,10 +31,6 @@ final class BestSellerCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.cornerRadius = 14
         
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func loadImageWith(viewModel: BestSellerCellViewModelProtocol) {
@@ -102,6 +99,7 @@ final class BestSellerCell: UICollectionViewCell {
         discountPrice.font = UIFont(name: "Mark-Bold", size: 19)
         
         deviceName.text = viewModel.cellContent.title
+        deviceName.numberOfLines = 0
         deviceName.font = UIFont(name: "Mark-Regular", size: 12)
         
         likeButton.layer.cornerRadius = likeButton.frame.width / 2
@@ -128,6 +126,11 @@ final class BestSellerCell: UICollectionViewCell {
         setContraints()
         
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 extension BestSellerCell {

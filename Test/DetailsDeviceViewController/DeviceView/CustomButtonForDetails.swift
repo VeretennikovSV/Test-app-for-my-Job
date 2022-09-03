@@ -44,11 +44,6 @@ final class CustomButtonForDetails: UIButton {
         
     }
     
-    func changeButtonState() {
-        setLabelColor()
-        setLabelFont()
-    }
-    
     private func setLabelColor() {
         let color = underlineView.isHidden ? .gray : Colors.shared.darkPirple
         setTitleColor(color, for: .normal)
@@ -77,4 +72,10 @@ final class CustomButtonForDetails: UIButton {
             underlineView.topAnchor.constraint(equalTo: bottomAnchor, constant: 2)
         ])
     }
+    
+    func changeButtonState() {
+        setLabelColor()
+        setLabelFont()
+    }
+    
 }

@@ -19,10 +19,6 @@ final class MemorySeclectionScrollView: UIScrollView {
         
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func addSubview(_ view: UIView) {
         super.addSubview(view)
         
@@ -40,4 +36,9 @@ final class MemorySeclectionScrollView: UIScrollView {
         }
         view.frame.origin.x = CGFloat(currentButtons.count - 1) * frame.height * 2 + spacing
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

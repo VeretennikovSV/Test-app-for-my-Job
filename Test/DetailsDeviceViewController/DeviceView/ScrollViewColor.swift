@@ -19,10 +19,6 @@ final class ColorSelectionScrollView: UIScrollView {
         
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func addSubview(_ view: UIView) {
         super.addSubview(view)
         
@@ -43,4 +39,9 @@ final class ColorSelectionScrollView: UIScrollView {
         
         print(view.frame)
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

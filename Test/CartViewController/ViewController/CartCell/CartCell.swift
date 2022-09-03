@@ -25,19 +25,20 @@ final class CartCell: UITableViewCell {
         backgroundColor = Colors.shared.darkPirple
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
     }
     
-    func configureCellWith(viewModel: CellViewModelProtocol) {
-        self.viewModel = viewModel
-        
+    private func fetchDetailsWith(viewModel: CellViewModelProtocol) {
         viewModel.fetchDetails
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind { sel, details in
                 sel.cellTitile?.text = viewModel.cellDeviceDetails?.title ?? ""
                 sel.cellTitile?.sizeToFit()
+                
+                UserDefaultsManager.shared?.savePriceOfDevice(string: deviceURL, price: details.price)
                 
                 sel.calcPriceLabel()
                 
@@ -57,10 +58,26 @@ final class CartCell: UITableViewCell {
             }.disposed(by: viewModel.disposeBag)
         
         
-        image = UIImageView(frame: CGRect(x: frame.height * 0.1, y: frame.height * 0.1, width: frame.height * 0.8, height: frame.height * 0.8))
-        cellTitile = UILabel(frame: CGRect(x: frame.height, y: frame.height * 0.1, width: frame.width * 0.45, height: frame.height * 0.4))
-        price = UILabel(frame: CGRect(x: frame.height, y: frame.height * 0.6, width: frame.width * 0.45, height: frame.height * 0.3))
-        customStepper = CustomStepperForCell(frame: CGRect(x: frame.width * 0.75, y: frame.height * 0.18, width: frame.width * 0.07, height: frame.height * 0.64))
+    }
+    
+    private func calcPriceLabel() {
+        price?.text = viewModel?.getSummPrice()
+        price?.sizeToFit()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCellWith(viewModel: CellViewModelProtocol) {
+        self.viewModel = viewModel
+        
+        fetchDetailsWith(viewModel: viewModel)
+        
+        image = UIImageView(frame: CGRect(x: frame.height * 0.15, y: frame.height * 0.1, width: frame.height * 0.8, height: frame.height * 0.8))
+        cellTitile = UILabel(frame: CGRect(x: frame.height + frame.height * 0.1, y: frame.height * 0.1, width: frame.width * 0.45, height: frame.height * 0.4))
+        price = UILabel(frame: CGRect(x: frame.height + frame.height * 0.1, y: frame.height * 0.65, width: frame.width * 0.45, height: frame.height * 0.3))
+        customStepper = CustomStepperForCell(frame: CGRect(x: frame.width * 0.8, y: frame.height * 0.18, width: frame.width * 0.07, height: frame.height * 0.64))
         
         
         price?.font = UIFont(name: "Mark-Bold", size: 22)
@@ -77,7 +94,7 @@ final class CartCell: UITableViewCell {
         cellTitile?.lineBreakMode = .byTruncatingTail
         cellTitile?.numberOfLines = 0
         
-        cellTitile?.font = UIFont(name: "Mark-Regular", size: 20)
+        cellTitile?.font = UIFont(name: "Mark-Regular", size: 25)
         
         contentView.addSubview(image ?? UIImageView())
         contentView.addSubview(cellTitile ?? UILabel())
@@ -85,8 +102,4 @@ final class CartCell: UITableViewCell {
         contentView.addSubview(customStepper ?? CustomStepperForCell())
     }
     
-    private func calcPriceLabel() {
-        price?.text = viewModel?.getSummPrice()
-        price?.sizeToFit()
-    }
 }

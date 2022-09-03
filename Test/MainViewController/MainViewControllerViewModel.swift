@@ -16,12 +16,12 @@ protocol MainViewControllerViewModelProtocol {
 }
 
 final class MainViewControllerViewModel: MainViewControllerViewModelProtocol {
-    private let fetchAdress = "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175"
-    private var filterViewHeight: CGFloat = 0
     var shopData: InputData?
     var fetchPublisher: Observable<InputData>
     var disposedBad = DisposeBag()
     
+    private let fetchAdress = "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175"
+    private var filterViewHeight: CGFloat = 0
     init() {
         let fetchResultSender = PublishSubject<InputData>()
         

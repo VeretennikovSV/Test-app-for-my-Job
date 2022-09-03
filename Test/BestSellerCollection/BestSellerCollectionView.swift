@@ -12,35 +12,6 @@ import RxSwift
 
 final class BestSellerCollectionView: UICollectionView {
     
-    let viewModel: BestSellerCollectionViewModelProtocol
-    
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        viewModel = BestSellerCollectionViewModel()
-        super.init(frame: frame, collectionViewLayout: BestSellerCollectionView.setLayout())
-        
-        self.register(BestSellerCell.self, forCellWithReuseIdentifier: BestSellerCell.cellId)
-        dataSource = self
-        delegate = self
-        
-        setBinding()
-        backgroundColor = Colors.shared.backgroundColor
-        
-        self.alwaysBounceVertical = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setBinding() {
-        viewModel.observableAccepterOfData
-            .observe(on: MainScheduler.instance)
-            .withUnretained(self)
-            .bind { sel, _ in
-                sel.reloadData()
-            }.disposed(by: viewModel.disposeBag)
-    }
-    
     static func setLayout() -> UICollectionViewCompositionalLayout {
         
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / 2), heightDimension: .fractionalHeight(1)))
@@ -59,6 +30,36 @@ final class BestSellerCollectionView: UICollectionView {
         
         return layout
     }
+    
+    let viewModel: BestSellerCollectionViewModelProtocol
+    
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        viewModel = BestSellerCollectionViewModel()
+        super.init(frame: frame, collectionViewLayout: BestSellerCollectionView.setLayout())
+        
+        self.register(BestSellerCell.self, forCellWithReuseIdentifier: BestSellerCell.cellId)
+        dataSource = self
+        delegate = self
+        
+        setBinding()
+        backgroundColor = Colors.shared.backgroundColor
+        
+        self.alwaysBounceVertical = false
+    }
+    
+    private func setBinding() {
+        viewModel.observableAccepterOfData
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind { sel, _ in
+                sel.reloadData()
+            }.disposed(by: viewModel.disposeBag)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 extension BestSellerCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {

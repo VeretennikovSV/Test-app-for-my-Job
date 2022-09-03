@@ -23,7 +23,7 @@ protocol HttpClientProtocol {
 
 final class NetworkManager: HttpClientProtocol {
     
-    private let urlSession: URLSession
+    private let urlSession = URLSession.shared
     
     func performGet<T: Decodable>(urlString: String) -> Observable<T> {
         guard let url = URL(string: urlString) else { return .error(FetchErrors.wrongUrl) }
@@ -34,12 +34,4 @@ final class NetworkManager: HttpClientProtocol {
             .subscribe(on: SerialDispatchQueueScheduler(internalSerialQueueName: "com.doc24.network"))
             .map { return try JSONDecoder().decode(T.self, from: $0) }
     }
-    
-    
-    init(
-        session: URLSession = .shared
-    ) {
-        self.urlSession = session
-    }
-    
 }

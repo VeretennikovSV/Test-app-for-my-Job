@@ -35,11 +35,12 @@ final class DiscountlessLabel: UIView {
 
     }
     
+    func setPriceWith(number: Int) {
+        price.text = "$\(number)"
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setPriceWith(number: Int) {
-        price.text = "$\(number)"
-    }
 }

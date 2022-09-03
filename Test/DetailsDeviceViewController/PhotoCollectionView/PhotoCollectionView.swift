@@ -19,18 +19,6 @@ final class PhotoCollectionView: UICollectionView {
     }
     static let cellID = "DetailsViewCell"
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: PhotoCollectionView.setLayout())
-        register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCollectionView.cellID)
-        
-        dataSource = self
-        delegate = self
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     static func setLayout() -> UICollectionViewCompositionalLayout {
         
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.8)))
@@ -53,6 +41,20 @@ final class PhotoCollectionView: UICollectionView {
         
         return layout
     }
+    
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: PhotoCollectionView.setLayout())
+        register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCollectionView.cellID)
+        
+        dataSource = self
+        delegate = self
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 extension PhotoCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {

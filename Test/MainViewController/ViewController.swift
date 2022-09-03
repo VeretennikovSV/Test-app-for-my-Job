@@ -139,10 +139,6 @@ final class ViewController: UIViewController {
             }.disposed(by: viewModel.disposedBad)
     }
     
-    @objc private func filterTapped() {
-        filterView.isHidden.toggle()
-    }
-    
     private func setInterface() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -282,6 +278,11 @@ final class ViewController: UIViewController {
     private func setRadius() {
         setRadiusTo(view: filterView, corners: [.topLeft, .topRight], size: CGSize(width: 30, height: 30))
     }
+    
+    @objc private func filterTapped() {
+        filterView.isHidden.toggle()
+    }
+    
 }
 
 

@@ -39,6 +39,7 @@ final class CartTableViewController: UIView {
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             self?.setupStacks()
             self?.setTitlesLabels()
+            self?.setPrices()
             self?.setConstraints()
         }
     }
@@ -119,8 +120,8 @@ final class CartTableViewController: UIView {
         discount.text = "Free"
         discount.textAlignment = .right
         
-        titlesLabelsStack.addArrangedSubview(price)
-        titlesLabelsStack.addArrangedSubview(discount)
+        priceLabelsStack.addArrangedSubview(price)
+        priceLabelsStack.addArrangedSubview(discount)
     }
     
     @objc private func checkOut() {
@@ -155,7 +156,7 @@ extension CartTableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.frame.height * 0.4
+        tableView.frame.height * 0.3
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

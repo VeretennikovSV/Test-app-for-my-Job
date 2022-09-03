@@ -36,10 +36,6 @@ final class FilterView: UIView {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func addSubviewes(viewes: UIView...) {
         viewes.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -143,6 +139,10 @@ final class FilterView: UIView {
     
     @objc private func doneButtonTapped() {             //Как и что менять непонятно по тз при выставлении фильтров
         isHidden.toggle()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

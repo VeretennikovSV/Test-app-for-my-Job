@@ -13,9 +13,9 @@ import RxSwift
 final class CustomStepperForCell: UIView {
     
     lazy var devicesCount = UILabel(frame: CGRect(x: 0, y: (frame.height * 0.5 - (frame.width * 0.25)), width: frame.width, height: (frame.width * 0.5)))
+    private let disposeBag = DisposeBag()
     private lazy var plusButton = UIButton(frame: CGRect(x: frame.width * 0.1, y: frame.width * 0.1, width: frame.width * 0.8, height: frame.width * 0.8))
     private lazy var minusButton = UIButton(frame: CGRect(x: frame.width * 0.1, y: frame.height - frame.width * 0.9, width: frame.width * 0.8, height: frame.width * 0.8))    
-    private let disposeBag = DisposeBag()
     
     var delegate: CartTableViewControllerProtocol?
     

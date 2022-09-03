@@ -8,22 +8,9 @@
 import Foundation
 import UIKit
 
-final class CategoryCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate {
+final class CategoryCollectionView: UICollectionView {
     
     let viewModel: CategoryCollectionViewModelProtocol
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.buttonsInCollection.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategorySelectionCell.cellId, for: indexPath) as! CategorySelectionCell
-        
-        cell.configureCellWith(viewModel: viewModel.configureCellViewModelWith(indexPath: indexPath))
-        collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .left)
-        
-        return cell
-    }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         viewModel = CategoryCollectionViewModel()
@@ -66,4 +53,21 @@ final class CategoryCollectionView: UICollectionView, UICollectionViewDataSource
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.buttonsInCollection.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategorySelectionCell.cellId, for: indexPath) as! CategorySelectionCell
+        
+        cell.configureCellWith(viewModel: viewModel.configureCellViewModelWith(indexPath: indexPath))
+        collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .left)
+        
+        return cell
+    }
+    
 }

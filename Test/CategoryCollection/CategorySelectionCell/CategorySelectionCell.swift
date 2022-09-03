@@ -14,11 +14,11 @@ import RxCocoa
 final class CategorySelectionCell: UICollectionViewCell {
     
     static let cellId = "CategoryCell"
+    var viewModel: CategorySelectionCellViewModelProtocol?
     
     private let circle = UIView()
     private let icon = UIImageView()
     private let label = UILabel()
-    var viewModel: CategorySelectionCellViewModelProtocol?
     private var isSelectedObserver = PublishSubject<Bool>()
     
     override func prepareForReuse() {

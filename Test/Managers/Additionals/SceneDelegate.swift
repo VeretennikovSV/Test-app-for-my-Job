@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabbar.addChild(navigationController)
         tabbar.addChild(cartVC)
         
-        tabbar.selectedViewController = cartVC
+        tabbar.selectedViewController = navigationController
         
         window.rootViewController = tabbar
         self.window = window
