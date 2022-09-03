@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class TabBarItemViewModel {
     let tabItem: TabItems
+    let onTap = PublishSubject<TabItems>()
     
     init(tabItem: TabItems) {
         self.tabItem = tabItem

@@ -79,8 +79,8 @@ final class BestSellerCell: UICollectionViewCell {
             discountlessPrice.price.bottomAnchor.constraint(equalTo: discountPrice.bottomAnchor),
             
             deviceName.leadingAnchor.constraint(equalTo: discountPrice.leadingAnchor),
+            deviceName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             deviceName.topAnchor.constraint(equalTo: discountPrice.bottomAnchor),
-            deviceName.widthAnchor.constraint(greaterThanOrEqualTo: contentView.widthAnchor, multiplier: 0.1),
         ])
     }
     
@@ -99,11 +99,10 @@ final class BestSellerCell: UICollectionViewCell {
         setButtonStateWith(viewModel: viewModel)
         
         discountPrice.text = "$\(viewModel.cellContent.discountPrice)"
-        discountPrice.font = UIFont.boldSystemFont(ofSize: 19)
+        discountPrice.font = UIFont(name: "Mark-Bold", size: 19)
         
         deviceName.text = viewModel.cellContent.title
-        deviceName.font = UIFont.systemFont(ofSize: 11)
-        deviceName.minimumScaleFactor = 0.8
+        deviceName.font = UIFont(name: "Mark-Regular", size: 12)
         
         likeButton.layer.cornerRadius = likeButton.frame.width / 2
         likeButton.backgroundColor = .white

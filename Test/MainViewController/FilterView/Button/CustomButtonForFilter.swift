@@ -27,7 +27,7 @@ class CustomButtonForFilter: UIButton {
         addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.text = "\u{2304}"
-        image.font = .boldSystemFont(ofSize: 16)
+        image.font = UIFont(name: "Mark-Bold", size: 16)
     }
     
     required init?(coder: NSCoder) {
@@ -39,7 +39,7 @@ class CustomButtonForFilter: UIButton {
         
         buttonText.text = text
         buttonText.textColor = Colors.shared.darkPirple
-        buttonText.font = .systemFont(ofSize: 16)
+        buttonText.font = UIFont(name: "Mark-Regular", size: 16)
         
         NSLayoutConstraint.activate([
             buttonText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width * 0.5),
@@ -47,7 +47,7 @@ class CustomButtonForFilter: UIButton {
             buttonText.centerYAnchor.constraint(equalTo: centerYAnchor),
             buttonText.trailingAnchor.constraint(equalTo: centerXAnchor),
             
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -(frame.width * 0.5)),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -(frame.width * 0.05)),
             image.heightAnchor.constraint(equalToConstant: frame.height),
             image.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1),
             image.topAnchor.constraint(equalTo: topAnchor)

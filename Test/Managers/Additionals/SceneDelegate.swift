@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    static let userDefaults = UserDefaultsManager.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -25,15 +24,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabbar = CustomBar()
         
+        let cartVC = CartViewController()
         
         tabbar.addChild(navigationController)
+        tabbar.addChild(cartVC)
+        
+        tabbar.selectedViewController = cartVC
+        
         window.rootViewController = tabbar
         self.window = window
         window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        SceneDelegate.userDefaults?.saveSelf()
+        
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -57,13 +61,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
+    deinit {
+        UserDefaultsManager.shared?.saveSelf()
+    }
+    
     private func setNavController(controller: UINavigationController) {
         let appearance = UINavigationBarAppearance()
         
         controller.navigationBar.prefersLargeTitles = false
         
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Fam: \(family) Font names = \(names)")
+        }
+        
         appearance.backgroundColor = Colors.shared.backgroundColor
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.shared.darkPirple, NSAttributedString.Key.font: UIFont(name: "Mark-Regular", size: 19)!]
         appearance.configureWithOpaqueBackground()
         appearance.shadowColor = .clear
         appearance.shadowImage = UIImage()
@@ -73,7 +86,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         controller.navigationBar.standardAppearance.backgroundColor = Colors.shared.backgroundColor
         controller.navigationBar.scrollEdgeAppearance?.backgroundColor = Colors.shared.backgroundColor
         controller.navigationBar.barTintColor = Colors.shared.backgroundColor
-        
     }
 
 }

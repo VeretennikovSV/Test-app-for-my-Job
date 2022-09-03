@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 enum TabItems: String {
     case bag
@@ -14,7 +15,8 @@ enum TabItems: String {
 }
 
 class CustomBar: UITabBarController, UIGestureRecognizerDelegate {
-    
+        
+    private let disposeBag = DisposeBag()
     private lazy var explorerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: (barWidth * 0.5), height: barHeight))
 
     override func viewDidLoad() {
@@ -26,7 +28,7 @@ class CustomBar: UITabBarController, UIGestureRecognizerDelegate {
         tabBar.barTintColor = Colors.shared.darkPirple
         
         explorerLabel.text = "\u{2022} Explorer"
-        explorerLabel.font = .systemFont(ofSize: 16)
+        explorerLabel.font = UIFont(name: "Mark-Regular", size: 16)
         explorerLabel.textColor = .white
         explorerLabel.textAlignment = .center
         
@@ -51,9 +53,20 @@ class CustomBar: UITabBarController, UIGestureRecognizerDelegate {
             default:
                 itemType = .profile
             }
+            let view = CustimTabBarItem(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
             let viewViewModel = TabBarItemViewModel(tabItem: itemType)
-            let view = CustimTabBarItem()
             view.setViewWith(viewModel: viewViewModel)
+            
+            print(viewViewModel)
+            
+            view.viewModel?.onTap.bind { tabItem in
+                switch tabItem {
+                case .bag:
+                    self.selectedViewController = self.viewControllers?[1]
+                default:
+                    self.selectedViewController = self.viewControllers?[0]
+                }
+            }.disposed(by: disposeBag)
             
             tabBar.addSubview(view)
             

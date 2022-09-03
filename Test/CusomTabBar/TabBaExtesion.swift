@@ -12,7 +12,7 @@ extension UITabBar {
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let pointInTabBar = super.point(inside: point, with: event)
         
-        if pointInTabBar == true {
+        if pointInTabBar {
             for subview in subviews {
                 if let sw = subview as? CustimTabBarItem {
                     let pointInSubview = sw.convert(point, from: self)

@@ -59,7 +59,7 @@ final class CustomImageLabelView: UIView {
         addSubview(imageLabel)
         imageLabel.textAlignment = .center
         imageLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageLabel.font = .systemFont(ofSize: 12)
+        imageLabel.font = UIFont(name: "Mark-Regular", size: 12)
         imageLabel.textColor = .gray
     }
     

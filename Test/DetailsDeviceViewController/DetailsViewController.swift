@@ -34,6 +34,8 @@ final class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Colors.shared.backgroundColor
+        title = "Product Details"
+        
         collectionView.backgroundColor = Colors.shared.backgroundColor
         setSubviewes()
         setNavController()
@@ -75,15 +77,38 @@ final class DetailsViewController: UIViewController {
     }
     
     private func setRadius() {
-        let path = UIBezierPath(roundedRect: deviceView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 30, height: 30))
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        
-        deviceView.layer.mask = maskLayer
+        setRadiusTo(view: deviceView, corners: [.topLeft, .topRight], size: CGSize(width: 30, height: 30))
     }
     
     private func setNavController() {
-        navigationController?.navigationItem.backBarButtonItem = nil
+        navigationItem.hidesBackButton = true
+        
+        let backButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 36, height: 36)))
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.backgroundColor = Colors.shared.darkPirple
+        backButton.tintColor = .white
+        backButton.layer.masksToBounds = true
+        backButton.layer.cornerRadius = 7
+        backButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        
+        
+        let basketButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+        basketButton.setImage(UIImage(systemName: "cart"), for: .normal)
+        basketButton.backgroundColor = Colors.shared.orangeColor
+        basketButton.tintColor = .white
+        basketButton.layer.masksToBounds = true
+        basketButton.layer.cornerRadius = 8
+        basketButton.addTarget(self, action: #selector(openCart), for: .touchUpInside)
+        
+        navigationItem.setLeftBarButton(UIBarButtonItem(customView: backButton), animated: true)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: basketButton)
+    }
+    
+    @objc private func openCart() {
+        show(CartViewController(), sender: nil)
+    }
+    
+    @objc private func dismissView() {
+        navigationController?.popViewController(animated: true)
     }
 }

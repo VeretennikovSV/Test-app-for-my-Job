@@ -55,7 +55,7 @@ final class CustomButtonForDetails: UIButton {
     }
     
     private func setLabelFont() {
-        titleLabel?.font = underlineView.isHidden ? .systemFont(ofSize: 18, weight: .light) : .boldSystemFont(ofSize: 22)
+        titleLabel?.font = underlineView.isHidden ? UIFont(name: "Mark-Regular", size: 18) : UIFont(name: "Mark-Bold", size: 22)
     }
     
     private func setUnderlineView() {

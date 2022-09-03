@@ -18,6 +18,20 @@ extension UIImage {
         }
         return scaledImage
     }
+    
+    func scaleImage(imageSize: CGSize, targetHeight: CGFloat) -> UIImage {
+        let imageRatio = imageSize.height / imageSize.width
+        
+        let newSize = CGSize(width: targetHeight / imageRatio, height: targetHeight)
+        
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        
+        let scaledImage = renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+        
+        return scaledImage
+    }
 }
 
 extension UIColor {

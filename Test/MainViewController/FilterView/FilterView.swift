@@ -25,9 +25,14 @@ final class FilterView: UIView {
         
         addSubviewes(viewes: topLabel, closeButton, doneButton, brandLabel, priceLabel, sizeLabel, brandFilterButton, priceFilterButton, sizeFilterButton)
         
-        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
-            self?.setInterface()
-            self?.setContraints()
+    }
+    
+    override var isHidden: Bool {
+        didSet {
+            DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
+                self?.setInterface()
+                self?.setContraints()
+            }
         }
     }
     
@@ -57,25 +62,25 @@ final class FilterView: UIView {
         
         topLabel.text = "Filter options"
         topLabel.textColor = Colors.shared.darkPirple
-        topLabel.font = .boldSystemFont(ofSize: 22)
+        topLabel.font = UIFont(name: "Mark-Bold", size: 14)
         
         brandLabel.text = "Brand"
         brandLabel.textColor = Colors.shared.darkPirple
-        brandLabel.font = .boldSystemFont(ofSize: 22)
+        brandLabel.font = UIFont(name: "Mark-Bold", size: 14)
         
         brandFilterButton.translatesAutoresizingMaskIntoConstraints = false
         brandFilterButton.setButtonTitleWith(text: "Samsung")
         
         priceLabel.text = "Price"
         priceLabel.textColor = Colors.shared.darkPirple
-        priceLabel.font = .boldSystemFont(ofSize: 22)
+        priceLabel.font = UIFont(name: "Mark-Bold", size: 14)
         
         priceFilterButton.translatesAutoresizingMaskIntoConstraints = false
         priceFilterButton.setButtonTitleWith(text: "$300 - $500")
         
         sizeLabel.text = "Size"
         sizeLabel.textColor = Colors.shared.darkPirple
-        sizeLabel.font = .boldSystemFont(ofSize: 22)
+        sizeLabel.font = UIFont(name: "Mark-Bold", size: 14)
         
         sizeFilterButton.translatesAutoresizingMaskIntoConstraints = false
         sizeFilterButton.setButtonTitleWith(text: "4.5 to 5.5 inches")

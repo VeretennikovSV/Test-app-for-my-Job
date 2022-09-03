@@ -16,7 +16,7 @@ final class DiscountlessLabel: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        price.font = UIFont.boldSystemFont(ofSize: 14)
+        price.font = UIFont(name: "Mark-Bold", size: 14)
         price.textColor = .gray
         line.backgroundColor = .gray
         

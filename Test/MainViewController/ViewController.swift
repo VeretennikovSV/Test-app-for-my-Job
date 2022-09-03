@@ -21,7 +21,7 @@ final class ViewController: UIViewController {
         config.title = "View all"
         config.baseForegroundColor = Colors.shared.orangeColor
         button.configuration = config
-        button.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        button.titleLabel?.font = UIFont(name: "Mark-Bold", size: 13)
         
         return button
     }()
@@ -34,7 +34,7 @@ final class ViewController: UIViewController {
         config.title = "See more"
         config.baseForegroundColor = Colors.shared.orangeColor
         button.configuration = config
-        button.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        button.titleLabel?.font = UIFont(name: "Mark-Bold", size: 13)
         
         return button
     }()
@@ -47,10 +47,13 @@ final class ViewController: UIViewController {
         config.title = "See more"
         config.baseForegroundColor = Colors.shared.orangeColor
         button.configuration = config
-        button.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        button.titleLabel?.font = UIFont(name: "Mark-Bold", size: 13)
         
         return button
     }()
+    
+    private let tetrisView = UIView()
+    private let tetrisImage = UIImageView(image: UIImage(named: "TetrisGroup")) 
     
     private let topCollectionView = CategoryCollectionView()
     private let hotSalesCollectionView = HotSalesCollection()
@@ -74,6 +77,8 @@ final class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setRadius()
         setConstraints()
+        tetrisView.layer.masksToBounds = true
+        tetrisView.layer.cornerRadius = tetrisView.frame.size.width / 2
         scrollView.contentSize.height = bestSellerCollectionView.frame.maxY
     }
     
@@ -82,6 +87,7 @@ final class ViewController: UIViewController {
         
         let label = UILabel()
         label.text = "Zihuatanejo, Gro"
+        label.font = UIFont(name: "Mark-Regular", size: 19)
         
         let image = UIImage(named: "PositionMark")?.resizeImageTo(size: CGSize(width: 15, height: 20))
         let imageView = UIImageView(image: image)
@@ -153,7 +159,9 @@ final class ViewController: UIViewController {
         bestSellerCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         search.translatesAutoresizingMaskIntoConstraints = false
+        tetrisView.translatesAutoresizingMaskIntoConstraints = false
         filterView.translatesAutoresizingMaskIntoConstraints = false
+        tetrisImage.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setConstraints() {
@@ -178,22 +186,26 @@ final class ViewController: UIViewController {
         scrollView.addSubview(bestSellerCollectionView)
         
         scrollView.addSubview(search)
+        scrollView.addSubview(tetrisView)
+        tetrisView.addSubview(tetrisImage)
         
         search.placeholder = "Search"
         search.layer.borderColor = UIColor.clear.cgColor
         search.layer.borderWidth = 0
         search.searchTextField.layer.masksToBounds = true
         search.searchTextField.layer.cornerRadius = 20
-        search.searchTextField.font = .systemFont(ofSize: 13)
+        search.searchTextField.font = UIFont(name: "Mark-Regular", size: 13)
         search.backgroundImage = UIImage()
         
-        selectCatLabel.font = .boldSystemFont(ofSize: 26)
+        tetrisView.backgroundColor = Colors.shared.orangeColor
+        
+        selectCatLabel.font = UIFont(name: "Mark-Bold", size: 22)
         selectCatLabel.text = "Select Category"
         
-        hotSalesLabel.font = .boldSystemFont(ofSize: 26)
+        hotSalesLabel.font = UIFont(name: "Mark-Bold", size: 22)
         hotSalesLabel.text = "Hot Sales"
         
-        bestSellerLabel.font = .boldSystemFont(ofSize: 26)
+        bestSellerLabel.font = UIFont(name: "Mark-Bold", size: 22)
         bestSellerLabel.text = "Best Seller"
         
         NSLayoutConstraint.activate([
@@ -206,7 +218,7 @@ final class ViewController: UIViewController {
             selectCatLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             selectCatLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             selectCatLabel.heightAnchor.constraint(equalToConstant: screenHeight * 0.05),
-            selectCatLabel.widthAnchor.constraint(equalToConstant: screenWidth * 0.45),
+            selectCatLabel.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 1),
             
             viewAllButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             viewAllButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
@@ -221,6 +233,15 @@ final class ViewController: UIViewController {
             search.topAnchor.constraint(equalTo: topCollectionView.bottomAnchor, constant: 16),
             search.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: screenWidth * 0.04),
             search.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -(screenWidth * 0.2)),
+            search.heightAnchor.constraint(equalToConstant: 50),
+            
+            tetrisView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -32),
+            tetrisView.heightAnchor.constraint(equalToConstant: 38),
+            tetrisView.widthAnchor.constraint(equalToConstant: 38),
+            tetrisView.centerYAnchor.constraint(equalTo: search.centerYAnchor),
+            
+            tetrisImage.centerYAnchor.constraint(equalTo: tetrisView.centerYAnchor),
+            tetrisImage.centerXAnchor.constraint(equalTo: tetrisView.centerXAnchor),
             
             hotSalesLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             hotSalesLabel.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 16),
@@ -259,12 +280,7 @@ final class ViewController: UIViewController {
     }
     
     private func setRadius() {
-        let path = UIBezierPath(roundedRect: filterView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 30, height: 30))
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        
-        filterView.layer.mask = maskLayer
+        setRadiusTo(view: filterView, corners: [.topLeft, .topRight], size: CGSize(width: 30, height: 30))
     }
 }
 

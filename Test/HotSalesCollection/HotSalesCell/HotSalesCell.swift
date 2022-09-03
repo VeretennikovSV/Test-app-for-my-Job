@@ -52,10 +52,10 @@ final class HotSalesCell: UICollectionViewCell {
         
         title.textAlignment = .left
         title.textColor = .white
-        title.font = UIFont.boldSystemFont(ofSize: 25)
+        title.font = UIFont(name: "Mark-Bold", size: 25)
         subtitle.textAlignment = .left
         subtitle.textColor = .white
-        subtitle.font = UIFont.systemFont(ofSize: 10)
+        subtitle.font = UIFont(name: "Mark-Regular", size: 16)
         
         titleStack.addArrangedSubview(title)
         titleStack.addArrangedSubview(subtitle)
@@ -66,7 +66,7 @@ final class HotSalesCell: UICollectionViewCell {
         button.layer.cornerRadius = 8
         button.backgroundColor = .white
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont(name: "Mark-Bold", size: 14)
         button.addTarget(self, action: #selector(buyNowTapped), for: .touchUpInside)
         button.isHidden = true
         
@@ -74,7 +74,7 @@ final class HotSalesCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         view.isHidden = true
         
-        isNewLabel.font = .boldSystemFont(ofSize: 11)
+        isNewLabel.font = UIFont(name: "Mark-Bold", size: 11)
         isNewLabel.text = "New"
         
         view.addSubview(isNewLabel)
@@ -100,7 +100,7 @@ final class HotSalesCell: UICollectionViewCell {
             
             titleStack.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingInset),
-            titleStack.widthAnchor.constraint(equalToConstant: frame.width / 2),
+            titleStack.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1),
             
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingInset),
             button.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: insetFromStack),

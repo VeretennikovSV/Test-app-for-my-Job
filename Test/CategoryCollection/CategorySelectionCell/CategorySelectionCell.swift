@@ -46,7 +46,7 @@ final class CategorySelectionCell: UICollectionViewCell {
         
         contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "Mark-Regular", size: 11)
         label.textAlignment = .center
     }
     

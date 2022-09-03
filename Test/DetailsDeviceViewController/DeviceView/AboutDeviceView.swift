@@ -9,11 +9,6 @@ import Foundation
 import UIKit
 import RxSwift
 
-protocol ButtonTapped {
-    func selectCategoryButtonTapped(sender: CustomButtonForDetails)
-    func selectColorTapped(sender: SelectColorButton)
-}
-
 internal enum ButtonTypeForDetails: String {
     case shop = "Shop"
     case details = "Details"
@@ -31,10 +26,12 @@ final class AboutDeviceView: UIView {
     private let deviceNameLabel = UILabel()
     private let likeButton = UIButton()
     private let starStack = UIStackView()
-    private let imagesStackView = UIStackView()
     private let selectColorAndCapacityLabel = UILabel()
+    private let addToCartButton = UIButton()
     
-    private lazy var colorSelectScrollView = ColorSelectionScrollView(frame: CGRect(origin: .zero, size: CGSize(width: viewsHeight, height: viewsHeight)))
+    internal lazy var colorSelectScrollView = ColorSelectionScrollView(frame: CGRect(origin: .zero, size: CGSize(width: viewsHeight, height: viewsHeight)))
+    internal lazy var memorySelectionScrollView = MemorySeclectionScrollView(frame: CGRect(origin: .zero, size: CGSize(width: viewsHeight, height: viewsHeight)))
+    
     private lazy var shopButton = CustomButtonForDetails(frame: .zero, buttonType: .shop, onTapDelegate: self)
     private lazy var detailsButton = CustomButtonForDetails(frame: .zero, buttonType: .details, onTapDelegate: self)
     private lazy var featuresButton = CustomButtonForDetails(frame: .zero, buttonType: .features, onTapDelegate: self)
@@ -48,7 +45,7 @@ final class AboutDeviceView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubviewes(views: deviceNameLabel, likeButton, starStack, shopButton, detailsButton, featuresButton, imagesStackView, cpu, camera, sd, ssd, selectColorAndCapacityLabel, colorSelectScrollView)
+        addSubviewes(views: deviceNameLabel, likeButton, starStack, shopButton, detailsButton, featuresButton, cpu, camera, sd, ssd, selectColorAndCapacityLabel, colorSelectScrollView, memorySelectionScrollView, addToCartButton)
         
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             self?.setContraints()
@@ -111,64 +108,72 @@ final class AboutDeviceView: UIView {
             selectColorAndCapacityLabel.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1),
             
             colorSelectScrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insetsForOthers),
-            colorSelectScrollView.widthAnchor.constraint(equalTo: widthAnchor, constant: (frame.width / 2) - insetsForOthers),
+            colorSelectScrollView.widthAnchor.constraint(equalTo: widthAnchor, constant: -(frame.width / 2) - insetsForOthers),
             colorSelectScrollView.topAnchor.constraint(equalTo: selectColorAndCapacityLabel.bottomAnchor, constant: betweenInsets),
-            colorSelectScrollView.heightAnchor.constraint(equalToConstant: viewsHeight)
+            colorSelectScrollView.heightAnchor.constraint(equalToConstant: viewsHeight), 
             
+            memorySelectionScrollView.leadingAnchor.constraint(equalTo: colorSelectScrollView.trailingAnchor),
+            memorySelectionScrollView.widthAnchor.constraint(equalTo: widthAnchor, constant: -(frame.width / 2) - insetsForOthers),
+            memorySelectionScrollView.topAnchor.constraint(equalTo: selectColorAndCapacityLabel.bottomAnchor, constant: betweenInsets),
+            memorySelectionScrollView.heightAnchor.constraint(equalToConstant: viewsHeight),
+            
+            addToCartButton.topAnchor.constraint(equalTo: memorySelectionScrollView.bottomAnchor, constant: betweenInsets),
+            addToCartButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -(insetsForOthers * 2)),
+            addToCartButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -betweenInsets),
+            addToCartButton.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
     private func setupLabelsAndButtons() {
-        
+        //MARK: Выглядит грязно, знаю...
         guard let viewModel = viewModel else { return }
         
         viewModel.acceptDeviceDetails
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind { sel, details in
-                sel.deviceNameLabel.font = .boldSystemFont(ofSize: 22)
-                sel.deviceNameLabel.tintColor = Colors.shared.darkPirple
-                sel.deviceNameLabel.text = details.title
                 
-                sel.likeButton.layer.masksToBounds = true
-                sel.likeButton.layer.cornerRadius = (sel.viewsHeight * 1.5) * 0.16
-                
-                sel.likeButton.setImage(sel.getHeart(), for: .normal)
-                sel.likeButton.backgroundColor = Colors.shared.darkPirple
-                
-                for _ in 0...4 {
-                    let starView = UIImageView(image: UIImage(named: "Star"))
-                    sel.starStack.addArrangedSubview(starView)
-                }
-                
-                sel.starStack.axis = .horizontal
-                sel.starStack.spacing = 5
+                sel.selectColorAndCapLabel() 
+                sel.setupLikeButton()
+                sel.setupStarStack()
                 
                 sel.addImageLabelsWithDetails(details: details)
-                
-                sel.selectColorAndCapacityLabel.text = "Select color and capacity"
-                sel.selectColorAndCapacityLabel.textColor = Colors.shared.darkPirple
-                sel.selectColorAndCapacityLabel.font = .boldSystemFont(ofSize: 14)
-                
-                sel.imagesStackView.axis = .horizontal
-                sel.imagesStackView.spacing = 0
-                
-                sel.setupButtonWith(sel.shopButton)
-                sel.shopButton.underlineView.isHidden = false
-                sel.shopButton.changeButtonState()
-                
-                sel.setupButtonWith(sel.detailsButton)
-                sel.setupButtonWith(sel.featuresButton)
-                
-                
-                for (buttonNumber, colorString) in details.color.enumerated() {
-                    let button = SelectColorButton(frame: .zero, onTapDelegate: self)
-                    button.setupButtonColorWithColor(color: colorString)
-                    sel.colorSelectScrollView.addSubview(button)
-                    if buttonNumber == 0 { button.isSelected = true }
-                } 
-                
+                sel.setAddToCartButtonWith(details: details)
+                sel.setColorsButtonsWith(details: details)
+                sel.setMemoryButtonsWith(details: details)
+                sel.setupDeviceNameWith(details: details)
+                sel.setupButtonsWith(details: details)
             }.disposed(by: viewModel.disposeBag)
+    }
+    
+    private func setupDeviceNameWith(details: DeviceDetails) {
+        deviceNameLabel.font = UIFont(name: "Mark-Bolds", size: 22)
+        deviceNameLabel.tintColor = Colors.shared.darkPirple
+        deviceNameLabel.text = details.title
+    }
+    
+    private func setupLikeButton() {
+        likeButton.layer.masksToBounds = true
+        likeButton.layer.cornerRadius = (viewsHeight * 1.5) * 0.16
+        
+        likeButton.setImage(getHeart(), for: .normal)
+        likeButton.backgroundColor = Colors.shared.darkPirple
+    }
+    
+    private func setupStarStack() {
+        for _ in 0...4 {
+            let starView = UIImageView(image: UIImage(named: "Star"))
+            starStack.addArrangedSubview(starView)
+        }
+        
+        starStack.axis = .horizontal
+        starStack.spacing = 5
+    }
+    
+    private func selectColorAndCapLabel() {
+        selectColorAndCapacityLabel.text = "Select color and capacity"
+        selectColorAndCapacityLabel.textColor = Colors.shared.darkPirple
+        selectColorAndCapacityLabel.font = UIFont(name: "Mark-Bold", size: 14)
     }
     
     private func addImageLabelsWithDetails(details: DeviceDetails) {
@@ -181,6 +186,46 @@ final class AboutDeviceView: UIView {
         button.underlineView.isHidden = true
         button.onTapDelegate = self
         button.changeButtonState()
+    }
+    
+    private func setupButtonsWith(details: DeviceDetails) {
+        setupButtonWith(shopButton)
+        shopButton.underlineView.isHidden = false
+        shopButton.changeButtonState()
+        
+        setupButtonWith(detailsButton)
+        setupButtonWith(featuresButton)
+    }
+    
+    private func setColorsButtonsWith(details: DeviceDetails) {
+        for (buttonNumber, colorString) in details.color.enumerated() {
+            let button = SelectColorButton(frame: .zero, onTapDelegate: self)
+            button.setupButtonColorWithColor(color: colorString)
+            colorSelectScrollView.addSubview(button)
+            if buttonNumber == 0 { button.isSelected = true }
+        } 
+    }
+    
+    private func setMemoryButtonsWith(details: DeviceDetails) {
+        for (buttonNumber, memory) in details.capacity.enumerated() {
+            let button = SelectMemoryButton(frame: .zero, onTapDelegate: self)
+            button.setupButtonMemory(memory: memory)
+            memorySelectionScrollView.addSubview(button)
+            if buttonNumber == 0 { button.isSelected = true }
+        }
+    }
+    
+    private func setAddToCartButtonWith(details: DeviceDetails) {
+        guard let viewModel = viewModel else { return }
+        addToCartButton.setTitle("$\(details.price)", for: .normal)
+        addToCartButton.setTitleColor(.white, for: .normal)
+        addToCartButton.layer.masksToBounds = true
+        addToCartButton.layer.cornerRadius = 10
+        addToCartButton.titleLabel?.font = UIFont(name: "Mark-Bold", size: 22)
+        addToCartButton.backgroundColor = Colors.shared.orangeColor
+        addToCartButton.rx.tap.bind { _ in
+            UserDefaultsManager.shared?.saveToCartWith(key: deviceURL)
+        }.disposed(by: viewModel.disposeBag)
     }
     
     private func addSubviewes(views: UIView...) {
@@ -196,7 +241,6 @@ final class AboutDeviceView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 //MARK: Appearance
@@ -237,30 +281,5 @@ extension AboutDeviceView {
     
     var betweenInsets: CGFloat {
         frame.height * 0.05
-    }
-}
-
-extension AboutDeviceView: ButtonTapped {
-    func selectCategoryButtonTapped(sender: CustomButtonForDetails) {
-        guard let buttons = subviews.filter({ $0 is CustomButtonForDetails }) as? [CustomButtonForDetails] else { return }
-        
-        buttons.forEach { 
-            $0.underlineView.isHidden = true
-            $0.changeButtonState()
-        }
-        
-        sender.underlineView.isHidden = false
-        sender.changeButtonState()
-    }
-    
-    func selectColorTapped(sender: SelectColorButton) {
-        guard let buttons = colorSelectScrollView.subviews.filter({ $0 is SelectColorButton }) as? [SelectColorButton] else { return }
-        
-        buttons.forEach {
-            let button = $0
-            button.isSelected = false
-        }
-        
-        sender.isSelected = true
     }
 }
