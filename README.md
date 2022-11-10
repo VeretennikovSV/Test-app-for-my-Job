@@ -1,8 +1,5 @@
 <h1 align="center">TestApp for *Company*(PetProj)</h1>
 
-## Deadline
-Две недели. 
-
 ## Зависимости
 Архитектура - MVVM
 Зависимости - RxSwift
